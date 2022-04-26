@@ -7,13 +7,11 @@ public class Country implements Serializable
     private long ID;
     private String Name;
     private String Capital;
-    private long Flag;
 
-    public Country(long ID, String name, String capital, long flag) {
+    public Country(long ID, String name, String capital) {
         this.ID = ID;
         Name = name;
         Capital = capital;
-        Flag = flag;
     }
 
     public long getID() {
@@ -28,7 +26,4 @@ public class Country implements Serializable
         return Capital;
     }
 
-    public long getFlag() {
-        return Flag;
-    }
 }

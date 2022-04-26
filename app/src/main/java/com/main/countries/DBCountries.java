@@ -2,10 +2,13 @@ package com.main.countries;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import androidx.annotation.Nullable;
+
+import java.util.ArrayList;
 
 public class DBCountries
 {
@@ -51,6 +54,31 @@ public class DBCountries
     {
         db.delete(TABLE_NAME,COLUMN_ID+"=?",
                 new String[]{String.valueOf(id)});
+    }
+    public ArrayList<Country> selectAll()
+    {
+        Cursor cursor=db.query(TABLE_NAME,null,null,
+                null,null,null,null);
+        ArrayList<Country> list=new ArrayList<>();
+        cursor.moveToFirst();
+        if(!cursor.isAfterLast()) {
+           do {
+                long id = cursor.getLong(NUM_COLUMN_ID);
+                String name = cursor.getString(NUM_COLUMN_NAME);
+                String capital = cursor.getString(NUM_COLUMN_CAPITAL);
+                list.add(new Country(id, name, capital));
+            }while (cursor.moveToNext());
+        }
+        return list;
+    }
+    public Country select(int id)
+    {
+        Cursor cursor=db.query(TABLE_NAME,null,COLUMN_ID+"=?",
+                new String[]{String.valueOf(id)},null,null,null);
+        cursor.moveToFirst();
+        String name=cursor.getString(NUM_COLUMN_NAME);
+        String capital=cursor.getString(NUM_COLUMN_CAPITAL);
+        return new Country(id,name,capital);
     }
     private class OpenHelper extends SQLiteOpenHelper
     {
