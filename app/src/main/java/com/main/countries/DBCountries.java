@@ -90,7 +90,7 @@ public class DBCountries
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             String query="CREATE TABLE "+TABLE_NAME+ " (" +
                     COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_NAME+" TEXT NOT NULL," +
+                    COLUMN_NAME+" TEXT UNIQUE NOT NULL," +
                     COLUMN_CAPITAL+" TEXT NOT NULL);";
             sqLiteDatabase.execSQL(query);
         }
