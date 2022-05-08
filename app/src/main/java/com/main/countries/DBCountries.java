@@ -12,13 +12,13 @@ import java.util.ArrayList;
 
 public class DBCountries
 {
-    private static final String DATABASE_NAME="counties.db";
+    private static final String DATABASE_NAME="countries.db";
     private static final int DATABASE_VERSION=1;
-    private static final String TABLE_NAME="countriesTable";
+    private static final String TABLE_NAME="Countries";
 
     private static final String COLUMN_ID="id";
     private static final String COLUMN_NAME="name";
-    private static final String COLUMN_CAPITAL="calital";
+    private static final String COLUMN_CAPITAL="capital";
 
     private static final int NUM_COLUMN_ID=0;
     private static final int NUM_COLUMN_NAME=1;
@@ -90,15 +90,15 @@ public class DBCountries
         public void onCreate(SQLiteDatabase sqLiteDatabase) {
             String query="CREATE TABLE "+TABLE_NAME+ " (" +
                     COLUMN_ID+" INTEGER PRIMARY KEY AUTOINCREMENT," +
-                    COLUMN_NAME+" TEXT UNIQUE NOT NULL," +
+                    COLUMN_NAME+" TEXT NOT NULL," +
                     COLUMN_CAPITAL+" TEXT NOT NULL);";
-            db.execSQL(query);
+            sqLiteDatabase.execSQL(query);
         }
 
         @Override
         public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-            db.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
-            onCreate(db);
+            sqLiteDatabase.execSQL("DROP TABLE IF EXISTS "+TABLE_NAME);
+            onCreate(sqLiteDatabase);
         }
     }
 }
